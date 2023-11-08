@@ -28,31 +28,27 @@ const Backupfile = ({ display }: any) => {
   };
   return (
     <>
-      <Button _hover={{ background: "none" }} onClick={onOpen}>
+      <Button
+        _hover={{ background: "none" }}
+        background={"none"}
+        onClick={onOpen}
+      >
         {/* Import Button */}
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          gap={{ sm: "1px", "2xl": "8px" }}
+        <Flex
+          flex={1}
+          justify={"center"}
           alignItems={"center"}
-          h={{ "2xl": "32px" }}
-          w={{ "2xl": "91px" }}
-          p={{
-            sm: "0px 1px",
-            mm: "0px 5px",
-            lg: "0px 2px",
-            "2xl": "0px 12px",
-          }}
+          p={{ "2xl": "0px 12px" }}
+          w={"91px"}
+          h={"32px"}
+          gap={{ "2xl": "8px" }}
           border={"1px solid"}
-          borderColor={"rgba(17, 25, 12, 1)"}
-          borderRadius={{ sm: "4px", "2xl": "6px" }}
-          _hover={{ background: "none" }}
+          borderRadius={"6px"}
         >
-          <Image src={"/images/left-icon.svg"} alt="arrow" />
-
-          <Button
+          <Image src={"/images/arrow.png"} alt="arrow" w={"14px"} h={"14px"} />
+          <Box
             w={{ "2xl": "45px" }}
-            h={"20px"}
+            h={{ "2xl": "20px" }}
             fontFamily={"Inter"}
             fontSize={{ sm: "14px", "2xl": "14px" }}
             fontWeight={"600px"}
@@ -60,8 +56,8 @@ const Backupfile = ({ display }: any) => {
             _hover={{ background: "none" }}
           >
             Import
-          </Button>
-        </Box>
+          </Box>
+        </Flex>
       </Button>
 
       <AlertDialog
