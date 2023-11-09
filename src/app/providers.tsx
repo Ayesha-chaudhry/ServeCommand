@@ -3,6 +3,8 @@
 import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../../theme/theme'
+import '@fontsource/inter'
+import '@fontsource/chivo'
 
 export function Providers({ 
     children 
