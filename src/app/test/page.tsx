@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const page: React.FC = () => {
+const Home: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [fileType, setFileType] = useState<string>("text/plain");
@@ -97,4 +97,4 @@ const page: React.FC = () => {
   );
 };
 
-export default page;
+export default Home;
