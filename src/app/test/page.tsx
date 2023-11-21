@@ -30,31 +30,31 @@ const Home: React.FC = () => {
         "https://zp2dhmgwaa.execute-api.us-east-1.amazonaws.com/generatepresignedurl?fileName=dummydata.txt&contentType=text/plain";
 
       const response = await axios.get(apiUrl, {
-        // params: {
-        //   fileName: fileName,
-        //   contentType: fileType,
-        // },
+        params: {
+          fileName: fileName,
+          contentType: fileType,
+        },
       });
 
       if (response.status === 200) {
         const { signedUrl } = response.data.uploadUrl;
         console.log("pre signed url", response.data.uploadUrl);
 
-        // const fileContent = await file?.arrayBuffer();
-        // if (fileContent) {
-        //   const uploadResponse = await axios.put(signedUrl, fileContent, {
-        //     headers: {
-        //       'Content-Type': fileType,
-        //     },
-        //   });
+        const fileContent = await file?.arrayBuffer();
+        if (fileContent) {
+          const uploadResponse = await axios.put(signedUrl, fileContent, {
+            headers: {
+              'Content-Type': fileType,
+            },
+          });
 
-        //   if (uploadResponse.status === 200) {
-        //     console.log('File uploaded successfully');
-        //     // Add any logic to handle success, e.g., showing a success message
-        //   } else {
-        //     console.error('File upload failed:', uploadResponse.statusText);
-        //   }
-        // }
+          if (uploadResponse.status === 200) {
+            console.log('File uploaded successfully');
+            // Add any logic to handle success, e.g., showing a success message
+          } else {
+            console.error('File upload failed:', uploadResponse.statusText);
+          }
+        }
       } else {
         console.error("Failed to get pre-signed URL:", response.statusText);
       }
