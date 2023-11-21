@@ -1,3 +1,4 @@
+
 "use client"
 import { useState } from "react";
 import {
@@ -26,8 +27,7 @@ const Home: React.FC = () => {
 
   const handleUpload = async () => {
     try {
-      const apiUrl =
-        "https://zp2dhmgwaa.execute-api.us-east-1.amazonaws.com/generatepresignedurl?fileName=dummydata.txt&contentType=text/plain";
+      const apiUrl ='https://zp2dhmgwaa.execute-api.us-east-1.amazonaws.com/generatepresignedurl';
 
       const response = await axios.get(apiUrl, {
         params: {
