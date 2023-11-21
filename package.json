@@ -15,8 +15,10 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/chivo": "^5.0.8",
     "@fontsource/inter": "^5.0.15",
+    "amazon-cognito-identity-js": "^6.3.7",
+    "aws-sdk": "^2.1499.0",
     "framer-motion": "^10.16.4",
-    "next": "14.0.1",
+    "next": "^14.0.3",
     "react": "^18",
     "react-dom": "^18"
   },

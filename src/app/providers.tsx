@@ -5,6 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../../theme/theme'
 import '@fontsource/inter'
 import '@fontsource/chivo'
+import Context from './context/context'
 
 export function Providers({ 
     children 
@@ -12,10 +13,12 @@ export function Providers({
   children: React.ReactNode 
   }) {
   return (
+    <Context>
     <CacheProvider>
       <ChakraProvider theme={theme}>
         {children}
       </ChakraProvider>
      </CacheProvider>
+     </Context>
   )
 }
