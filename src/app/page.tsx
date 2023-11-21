@@ -19,20 +19,20 @@ export default function Home() {
   return (
     <>
     
-    {step == 0 &&(<Login/>)}
+    {/* {step == 0 &&(<Login/>)}
     {step == 1 && (<Confpaswd/>)}
     {step == 2 &&(<Resetpassword/>)}
     {step == 3 && (<Resetcode/>)}
     {step == 4 && (<Confirmpassword/>)}
-    <Confpaswd/>
+     */}
     
     {/* <Resetpassword/> */}
     {/* <Resetcode/> */}
     {/* <Confirmpassword/> */}
-      {/* <Flex overflow={"hidden"}>
+      <Flex overflow={"hidden"}>
         <Sidebar />
         <Navbar />
-      </Flex> */}
+      </Flex>
 
       {/* <Backupfile/> */}
       {/* <Uploadedfile/> */}
