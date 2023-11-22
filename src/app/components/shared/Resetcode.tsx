@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Input, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Input, Text, Toast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Contextvalue } from "@/app/context/context";
 
@@ -245,6 +245,42 @@ const Resetcode: React.FC = () => {
           </Flex>
         </Flex>
       </Box>
+
+{/* <Box
+  height={"40px"}
+  padding={"0px 16px"}
+  display={"flex"}
+  justifyContent={"center"}
+  alignItems={"center"}
+  gap={"8px"}
+  alignSelf={"stretch"}
+  borderRadius={"6px"}
+  bg={"rgba(17, 25, 12, 1)"}
+  cursor={"pointer"}
+  onClick={() => {
+    setStep(3);
+    // Show toast notification
+    Toast({
+      title: "Reset Code Sent",
+      description: "Code was sent to 914-497-6340",
+      status: "success",
+      duration: 5000, // Display duration in milliseconds
+      isClosable: true,
+    });
+  }}
+>
+  <Text
+    color={"rgba(255, 255, 255, 1)"}
+    fontFamily={"Inter"}
+    fontSize={"16px"}
+    fontStyle={"normal"}
+    fontWeight={"600"}
+    lineHeight={"24px"}
+  >
+    Enter Code
+  </Text>
+</Box> */}
+
     </>
   );
 };

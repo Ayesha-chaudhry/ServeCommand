@@ -18,16 +18,16 @@ export default function Home() {
   return (
     <>
     
-    {/* {step == 0 &&(<Login/>)} */}
+    {step == 0 &&(<Login/>)}
     {/* {step == 1 && (<Confpaswd/>)} */}
-    {/* {step == 1 &&(<Resetpassword/>)}
+    {step == 1 &&(<Resetpassword/>)}
     {step == 2 && (<Resetcode/>)}
-    {step == 3 && (<Confirmpassword/>)} */}
+    {step == 3 && (<Confirmpassword/>)}
     
     
     {/* <Resetpassword/> */}
     {/* <Resetcode/> */}
-    <Confirmpassword/>
+    {/* <Confirmpassword/> */}
       {/* <Flex overflow={"hidden"}>
         <Sidebar />
         <Navbar />
