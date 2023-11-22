@@ -1,16 +1,23 @@
-import { Valueone } from "@/app/context/context";
-import { Box, Flex, FormLabel, Image, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  FormLabel,
+  Image,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 
-export const Confpaswd = () => {
-  const {password, setPassword} = Valueone()
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
+const Confirmpassword: React.FC = () => {
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
 
   const handleSubmit = () => {
     if (password === confirmPassword) {
       setPasswordsMatch(true);
-      console.log("Passwords match,");
+      console.log("Password is Matched");
     } else {
       setPasswordsMatch(false);
       console.log("Password does not Match");
@@ -27,7 +34,6 @@ export const Confpaswd = () => {
           justifyContent={"center"}
           alignItems={"center"}
           padding={"48px 32px"}
-          //   gap={{ sm: "14px", "2xl": "32px" }}
           gap={"32px"}
         >
           <Flex flexDir={"column"}>
@@ -36,7 +42,6 @@ export const Confpaswd = () => {
               gap={"24px"}
               flexDir={"column"}
               alignItems={"center"}
-              //   w={{ sm: "100%", md: "120%", "2xl": "360px" }}
               w={"360px"}
               h={"98px"}
             >
@@ -102,7 +107,7 @@ export const Confpaswd = () => {
             <Flex
               gap={"4px"}
               flexDir={"column"}
-              w={{ sm: "100%%", md: "120%", "2xl": "360px" }}
+              w={{ sm: "100%", md: "120%", "2xl": "360px" }}
             >
               <FormLabel
                 w={{ "2xl": "360px" }}
@@ -118,13 +123,19 @@ export const Confpaswd = () => {
                 Confirm New Password
               </FormLabel>
               <Input
-                type="Confirm password"
+                type="password"
                 placeholder="••••••••"
                 w={"360px"}
                 height={"40px"}
                 p={"0px 16px"}
                 fontSize={"16px"}
                 fontFamily={"Inter"}
+                border={"2px solid"}
+                borderColor={
+                  !passwordsMatch
+                    ? "rgba(229, 62, 62, 1)"
+                    : "rgba(226, 232, 240, 1)"
+                }
                 color={"rgba(102, 112, 133, 1)"}
                 fontStyle={"normal"}
                 fontWeight={"400"}
@@ -132,7 +143,17 @@ export const Confpaswd = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               {!passwordsMatch && (
-                <Text color="red.500" fontSize="14px" mt="2">
+                <Text
+                  color="rgba(229, 62, 62, 1)"
+                  fontSize="12px"
+                  mt="2"
+                  fontFamily={"Inter"}
+                  height={"16px"}
+                  alignSelf={"stretch"}
+                  fontStyle={"normal"}
+                  fontWeight={"400"}
+                  lineHeight={"16px"}
+                >
                   Password does not match.
                 </Text>
               )}
@@ -149,7 +170,6 @@ export const Confpaswd = () => {
               alignSelf={"stretch"}
               borderRadius={"6px"}
               bg={"rgba(17, 25, 12, 1)"}
-              cursor={"pointer"}
               onClick={() => handleSubmit()}
             >
               <Text
@@ -170,3 +190,5 @@ export const Confpaswd = () => {
     </>
   );
 };
+
+export default Confirmpassword;
