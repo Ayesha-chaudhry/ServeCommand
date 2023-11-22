@@ -13,7 +13,7 @@ import {
 import { signIn} from "./auth";
 import { useState } from "react";
 
-const home = () => {
+const Home = () => {
   const { setStep, username, setUsername} = Contextvalue();
   const [password, setPassword] = useState("");
 
@@ -195,4 +195,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default Home;
