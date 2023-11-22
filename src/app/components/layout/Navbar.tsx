@@ -7,7 +7,7 @@ const Navbar = () => {
       <Flex
         flexDir={"column"}
         gap={"16px"}
-        w={{ sm: "90%", md: "100%", "2xl": "1864px" }}
+        w={{ sm: "90%", md: "100%", "2xl": "2000px" }}
         backgroundColor={"#F7FAFC"}
       >
         {/* Main */}

@@ -1,5 +1,5 @@
 "use client";
-import { Valueone } from "../../context/context";
+import { Contextvalue } from "../../context/context";
 import {
   Box,
   Button,
@@ -11,12 +11,14 @@ import {
   Toast,
 } from "@chakra-ui/react";
 import { signIn} from "./auth";
+import { useState } from "react";
 
 const page = () => {
-  const { setStep, username, setUsername, password, setPassword } = Valueone();
+  const { setStep, username, setUsername} = Contextvalue();
+  const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    setStep(1);
+    // setStep(2);
     try {
       const token = await signIn(username, password);
       console.log("Access token: ", token);
@@ -157,7 +159,7 @@ const page = () => {
               color={"rgba(17, 25, 12, 1)"}
               px={"8px"}
               cursor={"pointer"}
-              onClick={() => setStep(2)}
+              onClick={() => setStep(1)}
             >
               Forgot Password
             </Text>

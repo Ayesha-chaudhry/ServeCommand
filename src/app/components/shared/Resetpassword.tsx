@@ -8,13 +8,13 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { forgotPassword as initiateForgotPassword } from "./auth";
-import { Valueone } from "@/app/context/context";
+import { Contextvalue } from "@/app/context/context";
 
-const Resetpassword = () => {
-  const { username, setStep } = Valueone();
-  
+const Resetpassword: React.FC = () => {
+  const { username, setStep } = Contextvalue();
+
   const handleForgotPassword = async () => {
-    setStep(3);
+    setStep(2);
     try {
       await initiateForgotPassword(username);
     } catch (error) {

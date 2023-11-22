@@ -8,31 +8,30 @@ import Login from "./components/shared/Login"
 // import Resetpassword from "./resetpassword/Resetpassword";
 import Resetcode from "./components/shared/Resetcode";
 import Confirmpassword from "./components/shared/Confirmpassword";
-import { Valueone } from "./context/context";
+import {Contextvalue } from "./context/context";
 import Resetpassword from "./components/shared/Resetpassword";
-import { Confpaswd } from "./components/shared/Confpaswd";
 
 
 export default function Home() {
-  const {step} = Valueone();
-  console.log(step)
+  const {step} =Contextvalue();
+  
   return (
     <>
     
-    {/* {step == 0 &&(<Login/>)}
-    {step == 1 && (<Confpaswd/>)}
-    {step == 2 &&(<Resetpassword/>)}
-    {step == 3 && (<Resetcode/>)}
-    {step == 4 && (<Confirmpassword/>)}
-     */}
+    {/* {step == 0 &&(<Login/>)} */}
+    {/* {step == 1 && (<Confpaswd/>)} */}
+    {/* {step == 1 &&(<Resetpassword/>)}
+    {step == 2 && (<Resetcode/>)}
+    {step == 3 && (<Confirmpassword/>)} */}
+    
     
     {/* <Resetpassword/> */}
     {/* <Resetcode/> */}
-    {/* <Confirmpassword/> */}
-      <Flex overflow={"hidden"}>
+    <Confirmpassword/>
+      {/* <Flex overflow={"hidden"}>
         <Sidebar />
         <Navbar />
-      </Flex>
+      </Flex> */}
 
       {/* <Backupfile/> */}
       {/* <Uploadedfile/> */}

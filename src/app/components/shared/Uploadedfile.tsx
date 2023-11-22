@@ -4,8 +4,13 @@ import Infocircle from "./Svgs/Infocircle";
 import Check from "./Svgs/Check";
 import Close from "./Svgs/Close";
 import {} from "@chakra-ui/react";
+import { useState } from "react";
 
-const Uploadedfile = ({ fileName }: any) => {
+const Uploadedfile = () => {
+  const [file, setFile] = useState<File | null>(null);
+  const [fileName, setFileName] = useState<string>('');
+  const [fileType, setFileType] = useState<string>('text/plain');
+
   return (
     <Box
       display={"flex"}
@@ -89,7 +94,7 @@ const Uploadedfile = ({ fileName }: any) => {
                 fontStyle={"normal"}
                 fontWeight={"600"}
               >
-                {fileName ? fileName : "backup.txt"}
+                {file ? fileType && fileName : fileName}
               </Text>
 
               <Box>
