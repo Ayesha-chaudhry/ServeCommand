@@ -2,6 +2,8 @@
 "use client"
 
 import { CognitoIdentityServiceProvider } from "aws-sdk";
+import { Contextvalue } from "@/app/context/context";
+
 
 interface Config {
   region: string;
@@ -17,7 +19,9 @@ const config: Config = {
 
 const cognito = new CognitoIdentityServiceProvider({ region: config.region });
 
-export const signIn = async (username: string, password: string): Promise<string> => {
+export const signIn = async (username: string, password: string): Promise<any> => {
+  
+  
   const params: CognitoIdentityServiceProvider.InitiateAuthRequest = {
     AuthFlow: "USER_PASSWORD_AUTH",
     ClientId: config.clientId,
@@ -28,7 +32,17 @@ export const signIn = async (username: string, password: string): Promise<string
   };
   try {
     const data = await cognito.initiateAuth(params).promise();
-    return data.AuthenticationResult?.AccessToken || "";
+    console.log("data :", data.ChallengeName)
+    if(data.ChallengeName == "NEW_PASSWORD_REQUIRED"){
+      
+      console.log("User needs to set a new password")
+      return data.ChallengeName
+    }
+    else{
+      return data.AuthenticationResult?.AccessToken || "";
+    }
+
+    
   } catch (error) {
     throw error;
   }
@@ -64,3 +78,4 @@ export const forgotPassword = async (username: string): Promise<void> => {
     throw error;
   }
 };
+

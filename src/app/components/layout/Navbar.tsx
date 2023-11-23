@@ -19,11 +19,11 @@ const Navbar = () => {
           width={{
             sm: "100%",
             mm: "100%",
-            ml: "90%",
+            ml: "380px",
             md: "100%",
             lg: "100%",
             xl: "100%",
-            "2xl": "1864px",
+            "2xl": "2000px",
           }}
           height={{ "2xl": "120px" }}
           p={{ sm: "25px 10px", md:"20px", lg:"25px 20px", xl:"24px 32px", "2xl": "24px 32px" }}
@@ -48,7 +48,7 @@ const Navbar = () => {
               fontFamily={"Chivo"}
               fontWeight={{ sm: "600", "2xl": "400px" }}
               fontStyle={"normal"}
-              width={{ "2xl": "176px" }}
+              width={{ "2xl": "178px" }}
               height={{ "2xl": "40px" }}
               color={"rgba(0, 0, 0, 0.87)"}
             >
@@ -75,7 +75,7 @@ const Navbar = () => {
             width={{
               sm: "100%",
               mm: "80%",
-              ml: "80%",
+              ml: "120px",
               md: "150px",
               lg: "160px",
               "2xl": "137px",
@@ -107,10 +107,8 @@ const Navbar = () => {
           w={{
             sm: "92%",
             mm: "95%",
-            ml: "90%",
-            md: "50%",
-            lg: "40%",
-            xl:"30%",
+            ml: "340px",
+            md: "431px",
             "2xl": "431px",
           }}
           h={{ "2xl": "194px" }}
@@ -134,14 +132,14 @@ const Navbar = () => {
                   h={{ "2xl": "50px" }}
                 >
                   <Flex
-                    w={{ sm: "132px", mm: "190px", ml:"200px", md:"220px", lg:"240px", xl:"260px", "2xl": "282px" }}
+                    w={{ sm: "132px", mm: "190px", ml:"200px", md:"282px", "2xl": "282px" }}
                     h={{ "2xl": "50px" }}
                   >
                     <Image
                       src={"/images/Logo.png"}
                       alt="logo"
-                      width={{ sm: "110px", lg: "160px", "2xl": "178px" }}
-                      height={{ "2xl": "50px" }}
+                      width={"178px"}
+                      height={{"2xl":"50px"}}
                     />
                   </Flex>
                   <Backupfile />
@@ -188,21 +186,22 @@ const Navbar = () => {
                   height={{ "2xl": "28px" }}
                   fontFamily={"Inter"}
                   fontSize={{ "2xl": "20px" }}
-                  fontWeight={{ sm: "800px", "2xl": "500px" }}
+                  fontWeight={{ sm: "800", "2xl": "500" }}
                   color={"rgba(0, 0, 0, 1"}
                   fontStyle={"normal"}
                   alignItems={"flex-start"}
                   alignSelf={"stretch"}
+
                 >
                   Hindsite Software
                 </Text>
                 <Text
                   bg={"white"}
-                  w={{ "2xl": "383px" }}
+                  w={{md:"383px",  "2xl": "383px" }}
                   h={{ "2xl": "48px" }}
                   color={"rgba(74, 75, 87, 1)"}
                   fontFamily={"Inter"}
-                  fontSize={{ sm: "13px", lg: "16px", "2xl": "16px" }}
+                  fontSize={{ sm: "13px", md: "16px", "2xl": "16px" }}
                   fontWeight={"400px"}
                   fontStyle={"normal"}
                 >

@@ -1,34 +1,35 @@
-"use client";
+import React, { useState } from "react";
+import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
+import { signIn } from "./auth";
+import { CognitoIdentityServiceProvider } from "aws-sdk";
 import { Contextvalue } from "../../context/context";
-import {
-  Box,
-  Button,
-  Flex,
-  FormLabel,
-  Image,
-  Input,
-  Text,
-  Toast,
-} from "@chakra-ui/react";
-import { signIn} from "./auth";
-import { useState } from "react";
 
-const Home = () => {
-  const { setStep, username, setUsername} = Contextvalue();
-  const [password, setPassword] = useState("");
+const Home: React.FC = () => {
+  const { setStep, username, setUsername } = Contextvalue();
+  const [password, setPassword] = useState<string>("");
 
   const handleLogin = async () => {
-    // setStep(2);
+    const cognito = new CognitoIdentityServiceProvider({ region: "us-east-1" });
+
     try {
       const token = await signIn(username, password);
-      console.log("Access token: ", token);
+      if (token === "NEW_PASSWORD_REQUIRED") {
+        setStep(4);
+      } else {
+        console.log("Access token: ", token);
+        setStep(5);
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
 
   return (
-    <Flex justifyContent={"center"} alignItems={"center"}>
+    <Flex
+      justifyContent={"center"}
+      alignItems={"center"}
+      background={"rgba(247, 250, 252, 1)"}
+    >
       <Flex
         height={"100vh"}
         w={{ "2xl": "fit-content", sm: "fit-content" }}
@@ -78,9 +79,8 @@ const Home = () => {
             gap={"4px"}
             flexDir={"column"}
             w={{ sm: "100%", md: "120%", "2xl": "360px" }}
-            h={"98px"}
           >
-            <FormLabel
+            <Text
               w={{ "2xl": "360px" }}
               h={"16px"}
               fontFamily={"Inter"}
@@ -92,8 +92,9 @@ const Home = () => {
               letterSpacing={"0.3px"}
             >
               Phone Number
-            </FormLabel>
+            </Text>
             <Input
+              background={"rgba(255, 255, 255, 1)"}
               type="tel"
               placeholder="Enter your phone number"
               w={{ "2xl": "360px" }}
@@ -112,10 +113,9 @@ const Home = () => {
           <Flex
             gap={"4px"}
             flexDir={"column"}
-            w={{ sm: "100%%", md: "120%", "2xl": "360px" }}
-            h={"98px"}
+            w={{ sm: "100%", md: "120%", "2xl": "360px" }}
           >
-            <FormLabel
+            <Text
               w={{ "2xl": "360px" }}
               h={"16px"}
               fontFamily={"Inter"}
@@ -127,8 +127,9 @@ const Home = () => {
               letterSpacing={"0.3px"}
             >
               Password
-            </FormLabel>
+            </Text>
             <Input
+              background={"rgba(255, 255, 255, 1)"}
               type="Password"
               placeholder="••••••••"
               w={{ "2xl": "360px" }}

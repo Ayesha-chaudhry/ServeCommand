@@ -1,29 +1,76 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormLabel,
-  Input,
-  Text,
-  Image,
-} from "@chakra-ui/react";
-import { forgotPassword as initiateForgotPassword } from "./auth";
+import { Box, Flex, Input, Text, Image, useToast } from "@chakra-ui/react";
 import { Contextvalue } from "@/app/context/context";
 
 const Resetpassword: React.FC = () => {
-  const { username, setStep } = Contextvalue();
+  const toast = useToast();
+  const { username, setStep, phoneNumber, setPhoneNumber } = Contextvalue();
 
-  const handleForgotPassword = async () => {
+  const handleEnterCode = () => {
+    console.log("Phone Number:", phoneNumber);
+
+    toast({
+      position: "bottom-right",
+      render: () => (
+        <Box
+          display="flex"
+          width="400px"
+          height="72px"
+          padding="12px 16px"
+          bg="rgba(17, 25, 12, 1)"
+        >
+          <Flex gap="12px" justifyContent="center" alignItems="center">
+            <Image
+              src="/images/check-circle.svg"
+              alt="img"
+              flexShrink={0}
+              w="24px"
+              h="24px"
+            />
+            <Flex flexDir="column">
+              <Text
+                w="332px"
+                h="24px"
+                alignSelf="stretch"
+                fontFamily="Inter"
+                fontSize="16px"
+                fontStyle="normal"
+                fontWeight="700"
+                lineHeight="24px"
+                color="rgba(255, 255, 255, 1)"
+              >
+                Reset code sent
+              </Text>
+              <Text
+                w="332px"
+                h="24px"
+                alignSelf="stretch"
+                fontFamily="Inter"
+                fontSize="16px"
+                fontStyle="normal"
+                fontWeight="400"
+                lineHeight="24px"
+                color="rgba(255, 255, 255, 1)"
+              >
+                Code was sent to <span>{phoneNumber}</span>
+              </Text>
+            </Flex>
+          </Flex>
+        </Box>
+      ),
+      duration: 5000, // Display duration in milliseconds
+      isClosable: true,
+    });
+
+    // You can also add your logic to navigate to the next step if needed
     setStep(2);
-    try {
-      await initiateForgotPassword(username);
-    } catch (error) {
-      console.error("Forgot password failed:", error);
-    }
   };
 
   return (
-    <Flex justifyContent={"center"} alignItems={"center"}>
+    <Flex
+      justifyContent={"center"}
+      alignItems={"center"}
+      background={"rgba(247, 250, 252, 1)"}
+    >
       <Flex
         height={"100vh"}
         w={{ "2xl": "fit-content", sm: "fit-content" }}
@@ -90,9 +137,8 @@ const Resetpassword: React.FC = () => {
             gap={"4px"}
             flexDir={"column"}
             w={{ sm: "100%", md: "120%", "2xl": "360px" }}
-            h={"98px"}
           >
-            <FormLabel
+            <Text
               w={{ "2xl": "360px" }}
               h={"16px"}
               fontFamily={"Inter"}
@@ -104,8 +150,9 @@ const Resetpassword: React.FC = () => {
               letterSpacing={"0.3px"}
             >
               Phone Number
-            </FormLabel>
+            </Text>
             <Input
+              background={"rgba(255, 255, 255, 1)"}
               type="tel"
               placeholder="Enter your phone number"
               w={{ "2xl": "360px" }}
@@ -116,6 +163,7 @@ const Resetpassword: React.FC = () => {
               colorScheme={"rgba(160, 174, 192, 1)"}
               fontStyle={"normal"}
               fontWeight={"400"}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </Flex>
           {/* Button */}
@@ -131,7 +179,8 @@ const Resetpassword: React.FC = () => {
             borderRadius={"6px"}
             bg={"rgba(17, 25, 12, 1)"}
             cursor={"pointer"}
-            onClick={handleForgotPassword}
+            // onClick={handleForgotPassword}
+            onClick={handleEnterCode}
           >
             <Text
               color={"rgba(255, 255, 255, 1)"}

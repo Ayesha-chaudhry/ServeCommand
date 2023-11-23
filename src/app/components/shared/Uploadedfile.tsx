@@ -94,7 +94,7 @@ const Uploadedfile = () => {
                 fontStyle={"normal"}
                 fontWeight={"600"}
               >
-                {file ? fileType && fileName : fileName}
+                {file ? fileType && fileName : "password.txt"}
               </Text>
 
               <Box>

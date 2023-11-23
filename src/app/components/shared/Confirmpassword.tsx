@@ -26,7 +26,7 @@ const Confirmpassword: React.FC = () => {
 
   return (
     <>
-      <Flex justifyContent={"center"} alignItems={"center"}>
+      <Flex justifyContent={"center"} alignItems={"center"} background={"rgba(247, 250, 252, 1)"}>
         <Flex
           height={"100vh"}
           w={{ "2xl": "fit-content", sm: "fit-content" }}
@@ -75,7 +75,7 @@ const Confirmpassword: React.FC = () => {
               flexDir={"column"}
               w={{ sm: "100%", md: "120%", "2xl": "360px" }}
             >
-              <FormLabel
+              <Text
                 w={{ "2xl": "360px" }}
                 h={"16px"}
                 fontFamily={"Inter"}
@@ -87,8 +87,9 @@ const Confirmpassword: React.FC = () => {
                 letterSpacing={"0.3px"}
               >
                 Enter New Password
-              </FormLabel>
+              </Text>
               <Input
+                bg={"rgba(255, 255, 255, 1)"}
                 type="tel"
                 placeholder="Enter new password"
                 w={"360px"}
@@ -109,7 +110,7 @@ const Confirmpassword: React.FC = () => {
               flexDir={"column"}
               w={{ sm: "100%", md: "120%", "2xl": "360px" }}
             >
-              <FormLabel
+              <Text
                 w={{ "2xl": "360px" }}
                 h={"16px"}
                 fontFamily={"Inter"}
@@ -121,8 +122,9 @@ const Confirmpassword: React.FC = () => {
                 letterSpacing={"0.3px"}
               >
                 Confirm New Password
-              </FormLabel>
+              </Text>
               <Input
+              bg={"rgba(255, 255, 255, 1)"}
                 type="password"
                 placeholder="••••••••"
                 w={"360px"}

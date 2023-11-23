@@ -1,22 +1,40 @@
-import { Box, Flex, Image, Input, Text, Toast } from "@chakra-ui/react";
+import { Box, Flex, Image, Input, Text, Toast, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Contextvalue } from "@/app/context/context";
 
 const Resetcode: React.FC = () => {
-  const { setStep } = Contextvalue();
-  const [codeInputs, setCodeInputs] = useState<string[]>(["", "", "", "", "", ""]);
+  const { setStep, phoneNumber } = Contextvalue();
 
-  const handleInputChange = (index: number, value: string) => {
-    const newCodeInputs = [...codeInputs];
-    newCodeInputs[index] = value;
-    setCodeInputs(newCodeInputs);
+  const [otp, setOTP] = useState(["", "", "", "", "", ""]); // Array to store each digit of the OTP
+  const toast = useToast();
+
+  const handleChange = (index: number, value: string) => {
+    const newOTP = [...otp];
+    newOTP[index] = value;
+
+    // Move focus to the next input if a digit is entered
+    if (value.length === 1 && index < newOTP.length - 1) {
+      const nextInput = document.getElementById(
+        `otp-input-${index + 1}`
+      ) as HTMLInputElement | null;
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
+
+    setOTP(newOTP);
   };
 
+ 
   return (
     <>
-      <Flex justifyContent={"center"} alignItems={"center"}>
+      <Flex
+        justifyContent={"center"}
+        alignItems={"center"}
+        background={"rgba(247, 250, 252, 1)"}
+      >
         <Flex
-          height={"90vh"}
+          height={"100vh"}
           w={{ "2xl": "fit-content", sm: "fit-content" }}
           flexDir={"column"}
           justifyContent={"center"}
@@ -67,8 +85,8 @@ const Resetcode: React.FC = () => {
                   alignSelf={"stretch"}
                 >
                   <Text>
-                    Code sent to:{" "}
-                    <span style={{ fontWeight: "600" }}>914-497-6340</span>
+                    Code sent to:
+                    <span style={{ fontWeight: "600" }}>{phoneNumber}</span>
                   </Text>
                   <br />
                   <Text>
@@ -90,10 +108,14 @@ const Resetcode: React.FC = () => {
               justifyContent={"center"}
               alignItems={"center"}
             >
-              {Array.from({ length: 6 }).map((_, index) => (
+              {otp.map((digit, index) => (
                 <Input
                   key={index}
-                  type="tel"
+                  id={`otp-input-${index}`}
+                  type="text"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => handleChange(index, e.target.value)}
                   placeholder="-"
                   w={{ "2xl": "48px" }}
                   height={"48px"}
@@ -110,8 +132,6 @@ const Resetcode: React.FC = () => {
                   fontStyle={"normal"}
                   fontWeight={"400"}
                   lineHeight={"normal"}
-                  value={codeInputs[index]}
-                  onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               ))}
             </Flex>
@@ -153,6 +173,7 @@ const Resetcode: React.FC = () => {
             width={{ sm: "100%", md: "120%", "2xl": "360px" }}
             height={"24px"}
             px={"16px"}
+            gap={1}
           >
             <Text fontWeight={"400"} color={"rgba(71, 84, 103, 1)"}>
               Didn’t receive the email?
@@ -196,91 +217,55 @@ const Resetcode: React.FC = () => {
               </Text>
             </Flex>
           </Box>
+          {/* <Box
+            display={"flex"}
+            ml={"1492px"}
+            mt={"140px"}
+            width={"400px"}
+            height={"72px"}
+            padding={"12px 16px"}
+            bg={"rgba(17, 25, 12, 1)"}
+          >
+            <Flex gap={"12px"} justifyContent={"center"} alignItems={"center"}>
+              <Image
+                src="/images/check-circle.svg"
+                alt="img"
+                flexShrink={0}
+                w={"24px"}
+                h={"24px"}
+              />
+              <Flex flexDir={"column"}>
+                <Text
+                  w={"332px"}
+                  h={"24px"}
+                  alignSelf={"stretch"}
+                  fontFamily={"Inter"}
+                  fontSize={"16px"}
+                  fontStyle={"normal"}
+                  fontWeight={"700"}
+                  lineHeight={"24px"}
+                  color={"rgba(255, 255, 255, 1)"}
+                >
+                  Reset code sent
+                </Text>
+                <Text
+                  w={"332px"}
+                  h={"24px"}
+                  alignSelf={"stretch"}
+                  fontFamily={"Inter"}
+                  fontSize={"16px"}
+                  fontStyle={"normal"}
+                  fontWeight={"400"}
+                  lineHeight={"24px"}
+                  color={"rgba(255, 255, 255, 1)"}
+                >
+                  Code was sent to 914-497-6340
+                </Text>
+              </Flex>
+            </Flex>
+          </Box> */}
         </Flex>
       </Flex>
-
-      <Box
-        display={"flex"}
-        ml={"1508px"}
-        width={"400px"}
-        height={"72px"}
-        padding={"12px 16px"}
-        bg={"rgba(17, 25, 12, 1)"}
-      >
-        <Flex gap={"12px"} justifyContent={"center"} alignItems={"center"}>
-          <Image
-            src="/images/check-circle.svg"
-            alt="img"
-            flexShrink={0}
-            w={"24px"}
-            h={"24px"}
-          />
-          <Flex flexDir={"column"}>
-            <Text
-              w={"332px"}
-              h={"24px"}
-              alignSelf={"stretch"}
-              fontFamily={"Inter"}
-              fontSize={"16px"}
-              fontStyle={"normal"}
-              fontWeight={"700"}
-              lineHeight={"24px"}
-              color={"rgba(255, 255, 255, 1)"}
-            >
-              Reset code sent
-            </Text>
-            <Text
-              w={"332px"}
-              h={"24px"}
-              alignSelf={"stretch"}
-              fontFamily={"Inter"}
-              fontSize={"16px"}
-              fontStyle={"normal"}
-              fontWeight={"400"}
-              lineHeight={"24px"}
-              color={"rgba(255, 255, 255, 1)"}
-            >
-              Code was sent to 914-497-6340
-            </Text>
-          </Flex>
-        </Flex>
-      </Box>
-
-{/* <Box
-  height={"40px"}
-  padding={"0px 16px"}
-  display={"flex"}
-  justifyContent={"center"}
-  alignItems={"center"}
-  gap={"8px"}
-  alignSelf={"stretch"}
-  borderRadius={"6px"}
-  bg={"rgba(17, 25, 12, 1)"}
-  cursor={"pointer"}
-  onClick={() => {
-    setStep(3);
-    // Show toast notification
-    Toast({
-      title: "Reset Code Sent",
-      description: "Code was sent to 914-497-6340",
-      status: "success",
-      duration: 5000, // Display duration in milliseconds
-      isClosable: true,
-    });
-  }}
->
-  <Text
-    color={"rgba(255, 255, 255, 1)"}
-    fontFamily={"Inter"}
-    fontSize={"16px"}
-    fontStyle={"normal"}
-    fontWeight={"600"}
-    lineHeight={"24px"}
-  >
-    Enter Code
-  </Text>
-</Box> */}
-
     </>
   );
 };

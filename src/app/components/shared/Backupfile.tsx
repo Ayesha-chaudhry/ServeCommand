@@ -484,7 +484,7 @@ const Backupfile = ({ display }: any) => {
           flex={1}
           justify={"center"}
           alignItems={"center"}
-          p={{ "2xl": "0px 12px" }}
+          p={{sm: "2px 4px", "2xl": "0px 12px" }}
           w={"91px"}
           h={"32px"}
           gap={{ "2xl": "8px" }}

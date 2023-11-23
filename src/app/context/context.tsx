@@ -5,6 +5,9 @@ interface MyContextProps {
   setStep: Dispatch<SetStateAction<number>>;
   username: string;
   setUsername: Dispatch<SetStateAction<string>>;
+  phoneNumber: string,
+  setPhoneNumber: Dispatch<SetStateAction<string>>,
+
 }
 
 const initialContext: MyContextProps = {
@@ -12,6 +15,8 @@ const initialContext: MyContextProps = {
   setStep: () => {},
   username: "",
   setUsername: () => {},
+  phoneNumber: "",
+  setPhoneNumber: () => {},
 };
 
 export const MyContext = createContext<MyContextProps>(initialContext);
@@ -23,9 +28,10 @@ interface ContextProps {
 export default function Context({ children }: ContextProps) {
   const [step, setStep] = useState<number>(0);
   const [username, setUsername] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   return (
-    <MyContext.Provider value={{ step, setStep, username, setUsername }}>
+    <MyContext.Provider value={{ step, setStep, username, setUsername, phoneNumber, setPhoneNumber }}>
       {children}
     </MyContext.Provider>
   );

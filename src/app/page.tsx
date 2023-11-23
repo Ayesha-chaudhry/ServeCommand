@@ -10,6 +10,7 @@ import Resetcode from "./components/shared/Resetcode";
 import Confirmpassword from "./components/shared/Confirmpassword";
 import {Contextvalue } from "./context/context";
 import Resetpassword from "./components/shared/Resetpassword";
+import Confpaswd from "./components/shared/Confpaswd"
 
 
 export default function Home() {
@@ -19,10 +20,14 @@ export default function Home() {
     <>
     
     {step == 0 &&(<Login/>)}
-    {/* {step == 1 && (<Confpaswd/>)} */}
     {step == 1 &&(<Resetpassword/>)}
     {step == 2 && (<Resetcode/>)}
     {step == 3 && (<Confirmpassword/>)}
+    {step == 4 && (<Confpaswd/>)}
+    {step == 5 && (<Flex overflow={"hidden"}>
+        <Sidebar />
+        <Navbar />
+      </Flex>)}
     
     
     {/* <Resetpassword/> */}
