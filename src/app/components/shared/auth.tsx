@@ -2,7 +2,6 @@
 "use client"
 
 import { CognitoIdentityServiceProvider } from "aws-sdk";
-import { Contextvalue } from "@/app/context/context";
 
 
 interface Config {

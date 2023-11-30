@@ -519,6 +519,7 @@ import {
                 fontFamily={"Inter"}
                 colorScheme={"rgba(160, 174, 192, 1)"}
                 fontStyle={"normal"}
+
                 fontWeight={"400"}
               />
             </Flex>

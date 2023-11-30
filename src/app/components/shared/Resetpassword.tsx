@@ -1,68 +1,98 @@
 import { Box, Flex, Input, Text, Image, useToast } from "@chakra-ui/react";
 import { Contextvalue } from "@/app/context/context";
 
+import {
+  CognitoIdentityProviderClient,
+  ForgotPasswordCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
+import { useState } from "react";
+
+const clientId = "1727702mdj4021tmc218s3efab";
+const cognitoClient = new CognitoIdentityProviderClient({
+  // region: process.env.NEXT_PUBLIC_COGNITO_REGION,
+  region: "us-east-1",
+});
+
 const Resetpassword: React.FC = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const toast = useToast();
   const { username, setStep, phoneNumber, setPhoneNumber } = Contextvalue();
 
-  const handleEnterCode = () => {
-    console.log("Phone Number:", phoneNumber);
+  const handleSendOtp = async () => {
+    try {
+      const response = await cognitoClient.send(
+        new ForgotPasswordCommand({
+          ClientId: clientId,
+          Username: phoneNumber,
+        })
+      );
 
-    toast({
-      position: "bottom-right",
-      render: () => (
-        <Box
-          display="flex"
-          width="400px"
-          height="72px"
-          padding="12px 16px"
-          bg="rgba(17, 25, 12, 1)"
-        >
-          <Flex gap="12px" justifyContent="center" alignItems="center">
-            <Image
-              src="/images/check-circle.svg"
-              alt="img"
-              flexShrink={0}
-              w="24px"
-              h="24px"
-            />
-            <Flex flexDir="column">
-              <Text
-                w="332px"
-                h="24px"
-                alignSelf="stretch"
-                fontFamily="Inter"
-                fontSize="16px"
-                fontStyle="normal"
-                fontWeight="700"
-                lineHeight="24px"
-                color="rgba(255, 255, 255, 1)"
-              >
-                Reset code sent
-              </Text>
-              <Text
-                w="332px"
-                h="24px"
-                alignSelf="stretch"
-                fontFamily="Inter"
-                fontSize="16px"
-                fontStyle="normal"
-                fontWeight="400"
-                lineHeight="24px"
-                color="rgba(255, 255, 255, 1)"
-              >
-                Code was sent to <span>{phoneNumber}</span>
-              </Text>
-            </Flex>
-          </Flex>
-        </Box>
-      ),
-      duration: 5000, // Display duration in milliseconds
-      isClosable: true,
-    });
+      console.log("Send OTP response:", response);
 
-    // You can also add your logic to navigate to the next step if needed
-    setStep(2);
+      if (response.$metadata.httpStatusCode === 200) {
+        // Move to the next screen
+        setStep(2);
+
+        // Show success toast
+        toast({
+          position: "bottom-right",
+          render: () => (
+            <Box
+              display="flex"
+              width="400px"
+              height="72px"
+              padding="12px 16px"
+              bg="rgba(17, 25, 12, 1)"
+            >
+              <Flex gap="12px" justifyContent="center" alignItems="center">
+                <Image
+                  src="/images/check-circle.svg"
+                  alt="img"
+                  flexShrink={0}
+                  w="24px"
+                  h="24px"
+                />
+                <Flex flexDir="column">
+                  <Text
+                    w="332px"
+                    h="24px"
+                    alignSelf="stretch"
+                    fontFamily="Inter"
+                    fontSize="16px"
+                    fontStyle="normal"
+                    fontWeight="700"
+                    lineHeight="24px"
+                    color="rgba(255, 255, 255, 1)"
+                  >
+                    Reset code sent
+                  </Text>
+                  <Text
+                    w="332px"
+                    h="24px"
+                    alignSelf="stretch"
+                    fontFamily="Inter"
+                    fontSize="16px"
+                    fontStyle="normal"
+                    fontWeight="400"
+                    lineHeight="24px"
+                    color="rgba(255, 255, 255, 1)"
+                  >
+                    Code was sent to <span>{phoneNumber}</span>
+                  </Text>
+                </Flex>
+              </Flex>
+            </Box>
+          ),
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+
+      setErrorMessage("");
+    } catch (error: any) {
+      console.error("Send OTP error:", error);
+      setErrorMessage(error.message);
+    }
   };
 
   return (
@@ -179,8 +209,7 @@ const Resetpassword: React.FC = () => {
             borderRadius={"6px"}
             bg={"rgba(17, 25, 12, 1)"}
             cursor={"pointer"}
-            // onClick={handleForgotPassword}
-            onClick={handleEnterCode}
+            onClick={handleSendOtp}
           >
             <Text
               color={"rgba(255, 255, 255, 1)"}

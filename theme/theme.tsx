@@ -8,4 +8,4 @@ import { fonts } from "./foundation/fonts";
 //     heading: `'Lemonada', sans-serif`,
 // }
 
-export default extendTheme({ breakpoints, fonts});
+export default extendTheme({ breakpoints, fonts, });

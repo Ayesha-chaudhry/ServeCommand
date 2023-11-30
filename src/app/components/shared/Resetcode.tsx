@@ -1,30 +1,103 @@
 import { Box, Flex, Image, Input, Text, Toast, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Contextvalue } from "@/app/context/context";
+import { CognitoIdentityProviderClient,  ConfirmForgotPasswordCommand } from "@aws-sdk/client-cognito-identity-provider";
+
+const clientId = "1727702mdj4021tmc218s3efab";
+const cognitoClient = new CognitoIdentityProviderClient({
+  // region: process.env.NEXT_PUBLIC_COGNITO_REGION,
+  region: "us-east-1",
+});
 
 const Resetcode: React.FC = () => {
   const { setStep, phoneNumber } = Contextvalue();
-
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [otp2, setOtp2] = useState('123456');
   const [otp, setOTP] = useState(["", "", "", "", "", ""]); // Array to store each digit of the OTP
   const toast = useToast();
+  
+  
 
   const handleChange = (index: number, value: string) => {
-    const newOTP = [...otp];
-    newOTP[index] = value;
-
-    // Move focus to the next input if a digit is entered
-    if (value.length === 1 && index < newOTP.length - 1) {
-      const nextInput = document.getElementById(
-        `otp-input-${index + 1}`
-      ) as HTMLInputElement | null;
-      if (nextInput) {
-        nextInput.focus();
+    // Check if the entered value is a number or if it's the Backspace key
+    if (!isNaN(Number(value)) || value === "Backspace") {
+      const newOTP = [...otp];
+  
+      if (value === "Backspace") {
+        // Handle Backspace key by removing the last entered digit
+        newOTP[index] = "";
+        if (index > 0) {
+          // Move focus to the previous input when deleting if not at the beginning
+          const prevInput = document.getElementById(`otp-input-${index - 1}`) as HTMLInputElement | null;
+          if (prevInput) {
+            prevInput.focus();
+          }
+        }
+      } else {
+        // Handle digit input
+        newOTP[index] = value;
+  
+        // Move focus to the next input if a digit is entered
+        if (value.length === 1 && index < newOTP.length - 1) {
+          const nextInput = document.getElementById(`otp-input-${index + 1}`) as HTMLInputElement | null;
+          if (nextInput) {
+            nextInput.focus();
+          }
+        }
       }
+  
+      setOTP(newOTP);
     }
-
-    setOTP(newOTP);
   };
+  
 
+
+  const handleChangeOtp = async () => {
+    try {
+      const response = await cognitoClient.send(
+        new ConfirmForgotPasswordCommand({
+          ClientId: clientId,
+          ConfirmationCode: otp2,
+          Username: phoneNumber,
+          Password: 'newPassword', // Replace 'newPassword' with the actual new password
+        })
+      );
+      console.log('Change Password response:', response);
+      setSuccessMessage('Password changed successfully!');
+      setShowSuccess(true);
+    } catch (error: any) {
+      console.error('Change Password error:', error);
+      setErrorMessage(error.message);
+    }
+  };
+  
+
+  const checkEnteredCode = () => {
+    // Replace this with your actual code validation logic
+    const expectedCode = "123456"; // Replace with the actual code you are expecting
+    const enteredCode = otp.join(""); // Assuming otp is an array of individual digits
+  
+    return enteredCode === expectedCode;
+  };
+  
+  const handleEnterCode = () => {
+    // Assuming you have a function to check if the entered code is correct
+    const isCodeCorrect = checkEnteredCode();
+    setStep(3)
+  
+    if (isCodeCorrect) {
+      // Code is correct, proceed with the password change
+      handleChangeOtp();
+    } else {
+      // Code is incorrect, log an error message to the console
+      console.error('Entered code is incorrect. Please try again.');
+      // You can also show a toast message or update the state to display an error message on the UI
+      setErrorMessage('Entered code is incorrect. Please try again.');
+    }
+  };
+  
  
   return (
     <>
@@ -147,7 +220,8 @@ const Resetcode: React.FC = () => {
               borderRadius={"6px"}
               bg={"rgba(17, 25, 12, 1)"}
               cursor={"pointer"}
-              onClick={() => setStep(3)}
+              onClick={handleEnterCode}
+              // onClick={() => setStep(3)}
             >
               <Text
                 color={"rgba(255, 255, 255, 1)"}

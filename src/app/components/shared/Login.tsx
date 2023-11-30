@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Input, Progress, Text } from "@chakra-ui/react";
 import { signIn } from "./auth";
 import { CognitoIdentityServiceProvider } from "aws-sdk";
 import { Contextvalue } from "../../context/context";
+
 
 const Home: React.FC = () => {
   const { setStep, username, setUsername } = Contextvalue();
   const [password, setPassword] = useState<string>("");
 
+  const cognito = new CognitoIdentityServiceProvider({ region: "us-east-1" });
   const handleLogin = async () => {
-    const cognito = new CognitoIdentityServiceProvider({ region: "us-east-1" });
 
     try {
       const token = await signIn(username, password);
@@ -23,7 +24,8 @@ const Home: React.FC = () => {
       console.error("Login failed:", error);
     }
   };
-
+  
+  
   return (
     <Flex
       justifyContent={"center"}
@@ -162,6 +164,8 @@ const Home: React.FC = () => {
               cursor={"pointer"}
               onClick={() => setStep(1)}
             >
+               {/* <Progress colorScheme='black' size='sm' value={50} /> */}
+
               Forgot Password
             </Text>
           </Flex>
@@ -189,7 +193,7 @@ const Home: React.FC = () => {
             h={"24px"}
           >
             Sign in
-          </Button>
+          </Button>       
         </Box>
       </Flex>
     </Flex>

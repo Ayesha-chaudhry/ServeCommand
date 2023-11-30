@@ -8,19 +8,51 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { CognitoIdentityProviderClient,  ConfirmForgotPasswordCommand } from "@aws-sdk/client-cognito-identity-provider";
+import { Contextvalue } from "@/app/context/context";
 
 const Confirmpassword: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const {phoneNumber, setPhoneNumber} = Contextvalue();
 
-  const handleSubmit = () => {
-    if (password === confirmPassword) {
-      setPasswordsMatch(true);
-      console.log("Password is Matched");
-    } else {
-      setPasswordsMatch(false);
-      console.log("Password does not Match");
+
+  const clientId = "1727702mdj4021tmc218s3efab";
+  const cognitoClient = new CognitoIdentityProviderClient({
+    // region: process.env.NEXT_PUBLIC_COGNITO_REGION,
+    region: "us-east-1"
+  });  
+  
+  // const handleSubmit = () => {
+  //   if (password === confirmPassword) {
+  //     setPasswordsMatch(true);
+  //     console.log("Password is Matched");
+  //   } else {
+  //     setPasswordsMatch(false);
+  //     console.log("Password does not Match");
+  //   }
+  // };
+
+  const handleChangePassword = async () => {
+    try {
+      const response = await cognitoClient.send(new ConfirmForgotPasswordCommand({
+        ClientId: clientId,
+        ConfirmationCode: otp,
+        Username: phoneNumber,
+        Password: newPassword,
+      }));
+      console.log('Change Password response:', response);
+      setSuccessMessage('Password changed successfully!');
+      setShowSuccess(true);
+    } catch (error: any) {
+      console.error('Change Password error:', error);
+      setErrorMessage(error.message);
     }
   };
 
@@ -172,7 +204,10 @@ const Confirmpassword: React.FC = () => {
               alignSelf={"stretch"}
               borderRadius={"6px"}
               bg={"rgba(17, 25, 12, 1)"}
-              onClick={() => handleSubmit()}
+              onClick={handleChangePassword}
+              // onClick={() => {
+              //   handleSubmit()
+              //   handleChangePassword()}}
             >
               <Text
                 color={"rgba(255, 255, 255, 1)"}

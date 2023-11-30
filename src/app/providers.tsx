@@ -7,6 +7,7 @@ import '@fontsource/inter/400.css'
 import '@fontsource/chivo/700.css'
 import Context from './context/context'
 
+
 export function Providers({ 
     children 
   }: { 
